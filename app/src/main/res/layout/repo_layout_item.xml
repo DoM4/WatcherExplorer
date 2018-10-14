@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="6dp"
+        android:layout_margin="5dp"
+>
+<android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+            android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:id="@+id/repoTitle"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+              style="@style/RepoStyleTitle"
+              tools:text="Android Library"
+              />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/repoDescription"
+            app:layout_constraintTop_toBottomOf="@id/repoTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/RepoStyleDescription"
+            tools:text="Android Library"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/repoWatchers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repoDescription"
+            app:layout_constraintStart_toEndOf="@style/RepoStyleTitle"
+            tools:text="Watchers : 30"
+            style="@style/RepoStyleTitle"
+            android:drawableRight="@drawable/chevron_right"/>
+</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
