@@ -1,11 +1,14 @@
 package com.domenicoaumenta.watcherexplorer.network
 
+import com.domenicoaumenta.watcherexplorer.model.RepoOwner
+import com.domenicoaumenta.watcherexplorer.model.RepoOwnerResponse
 import com.domenicoaumenta.watcherexplorer.model.RepositoriesResponse
 import com.domenicoaumenta.watcherexplorer.utils.BASE_URL
 import io.reactivex.Observable
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -19,6 +22,9 @@ interface GitHubWatcherAPI{
     * */
     @GET("search/repositories")
     fun searchRepositoriesByKeyword(@Query("q" ) keyWord:String) : Observable<RepositoriesResponse>
+
+    @GET("/repos/{owner}/{repo}/subscribers")
+    fun getWatchersByRepo(@Path ("owner") ownerName : String, @Path("repo") repoName : String) : Observable<RepoOwnerResponse>
 
     companion object Factory {
         fun create(): GitHubWatcherAPI {
