@@ -1,5 +1,9 @@
 package com.domenicoaumenta.watcherexplorer.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class RepoObject(
     val id : Int,
     val node_id : String,
@@ -21,7 +25,7 @@ data class RepoObject(
     val language: String,
     val forks_count: Int,
     val open_issues_count: Int,
-    val master_branch: String,
-    val default_branch: String,
+    val master_branch: String?,
+    val default_branch: String?,
     val score: Double = 0.0
-)
+) : Parcelable

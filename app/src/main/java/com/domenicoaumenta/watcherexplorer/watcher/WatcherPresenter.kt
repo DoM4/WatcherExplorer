@@ -1,6 +1,7 @@
 package com.domenicoaumenta.watcherexplorer.watcher
 
 import android.util.Log
+import com.domenicoaumenta.watcherexplorer.model.RepoOwner
 import com.domenicoaumenta.watcherexplorer.model.RepoOwnerResponse
 import com.domenicoaumenta.watcherexplorer.model.RepositoriesResponse
 import com.domenicoaumenta.watcherexplorer.network.GitHubWatcherAPI
@@ -25,9 +26,9 @@ class WatcherPresenter : WatcherContract.Presenter {
         var subscribe = api.getWatchersByRepo(repoOwner,repoName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ dataResponse: RepoOwnerResponse? ->
+            .subscribe({ dataResponse: List<RepoOwner>? ->
                 view.showProgress(false)
-                view.loadDataSuccess(dataResponse!!.list)
+                view.loadDataSuccess(dataResponse!!)
             }, { error ->
                 view.showProgress(false)
                 view.showErrorMessage(error.localizedMessage)

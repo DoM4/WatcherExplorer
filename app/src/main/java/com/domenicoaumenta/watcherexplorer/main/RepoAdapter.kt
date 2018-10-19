@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import com.domenicoaumenta.watcherexplorer.R
 import com.domenicoaumenta.watcherexplorer.main.RepoAdapter.RepoViewHolder
 import com.domenicoaumenta.watcherexplorer.model.RepoObject
+import com.domenicoaumenta.watcherexplorer.utils.launchWatcherActivity
+import com.domenicoaumenta.watcherexplorer.watcher.REPO_OBJECT
 import com.domenicoaumenta.watcherexplorer.watcher.WatcherActivity
 import kotlinx.android.synthetic.main.repo_layout_item.view.*
 import org.jetbrains.anko.startActivity
@@ -22,7 +24,6 @@ import org.jetbrains.anko.startActivity
 class RepoAdapter(private val context : Context, repoList: List<RepoObject>?) : RecyclerView.Adapter<RepoViewHolder>(){
 
      var repoList : List<RepoObject>? = repoList
-         get() = field
          set(value) {
             field = value
             notifyDataSetChanged()
@@ -47,7 +48,7 @@ class RepoAdapter(private val context : Context, repoList: List<RepoObject>?) : 
             itemView.repoWatchers.text = String.format("Watchers : ${repoObject?.watchers_count}")
 
             itemView.setOnClickListener {
-                itemView.context.startActivity(Intent(itemView.context,WatcherActivity::class.java))
+                itemView.context.startActivity(itemView.context.launchWatcherActivity(repoObject))
             }
         }
     }

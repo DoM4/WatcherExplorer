@@ -1,25 +1,20 @@
 package com.domenicoaumenta.watcherexplorer.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
-import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.domenicoaumenta.watcherexplorer.R
 import com.domenicoaumenta.watcherexplorer.di.component.DaggerActivityComponent
 import com.domenicoaumenta.watcherexplorer.di.module.ActivityModule
 import com.domenicoaumenta.watcherexplorer.model.RepoObject
 import com.domenicoaumenta.watcherexplorer.repositories.RepositoriesContract
+import com.domenicoaumenta.watcherexplorer.utils.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
-import android.view.inputmethod.EditorInfo
-import android.widget.ProgressBar
-import android.widget.TextView
-
 
 
 class MainActivity : AppCompatActivity(),RepositoriesContract.View {
@@ -78,10 +73,4 @@ class MainActivity : AppCompatActivity(),RepositoriesContract.View {
         reposList.adapter = repoAdapter
     }
 
-
-    var View.isVisible : Boolean
-        get() = this.visibility == View.VISIBLE
-        set(value) {
-            this.visibility = if (value) View.VISIBLE else View.GONE
-        }
 }

@@ -22,9 +22,8 @@ interface GitHubWatcherAPI{
     * */
     @GET("search/repositories")
     fun searchRepositoriesByKeyword(@Query("q" ) keyWord:String) : Observable<RepositoriesResponse>
-
     @GET("/repos/{owner}/{repo}/subscribers")
-    fun getWatchersByRepo(@Path ("owner") ownerName : String, @Path("repo") repoName : String) : Observable<RepoOwnerResponse>
+    fun getWatchersByRepo(@Path ("owner") ownerName : String, @Path("repo") repoName : String) : Observable<List<RepoOwner>>
 
     companion object Factory {
         fun create(): GitHubWatcherAPI {
