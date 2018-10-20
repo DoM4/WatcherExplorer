@@ -1,7 +1,6 @@
 package com.domenicoaumenta.watcherexplorer.network
 
 import com.domenicoaumenta.watcherexplorer.model.RepoOwner
-import com.domenicoaumenta.watcherexplorer.model.RepoOwnerResponse
 import com.domenicoaumenta.watcherexplorer.model.RepositoriesResponse
 import com.domenicoaumenta.watcherexplorer.utils.BASE_URL
 import io.reactivex.Observable

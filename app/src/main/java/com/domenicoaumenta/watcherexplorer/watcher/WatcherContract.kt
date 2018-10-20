@@ -1,9 +1,7 @@
 package com.domenicoaumenta.watcherexplorer.watcher
 
 import com.domenicoaumenta.puc.ui.BaseContract
-import com.domenicoaumenta.watcherexplorer.model.RepoObject
 import com.domenicoaumenta.watcherexplorer.model.RepoOwner
-import com.domenicoaumenta.watcherexplorer.model.RepoOwnerResponse
 
 
 /**

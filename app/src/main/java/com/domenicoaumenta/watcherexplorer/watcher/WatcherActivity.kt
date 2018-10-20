@@ -2,16 +2,21 @@ package com.domenicoaumenta.watcherexplorer.watcher
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
+import com.domenicoaumenta.watcherexplorer.BaseActivity
 import com.domenicoaumenta.watcherexplorer.R
 import com.domenicoaumenta.watcherexplorer.di.component.DaggerActivityComponent
 import com.domenicoaumenta.watcherexplorer.di.module.ActivityModule
 import com.domenicoaumenta.watcherexplorer.model.RepoObject
 import com.domenicoaumenta.watcherexplorer.model.RepoOwner
+import com.domenicoaumenta.watcherexplorer.utils.action
 import com.domenicoaumenta.watcherexplorer.utils.isVisible
+import com.domenicoaumenta.watcherexplorer.utils.snack
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_watchers.*
 import javax.inject.Inject
 
@@ -22,7 +27,7 @@ import javax.inject.Inject
 
 const val REPO_OBJECT = "REPO_OBJECT"
 
-class WatcherActivity : AppCompatActivity(),WatcherContract.View{
+class WatcherActivity : BaseActivity(),WatcherContract.View{
 
     private lateinit var repoWatcherAdapter :  RepoWatchersAdapter
     private lateinit var repoObject: RepoObject
@@ -83,11 +88,23 @@ class WatcherActivity : AppCompatActivity(),WatcherContract.View{
     }
 
     override fun showErrorMessage(error: String) {
-        
+
     }
 
     override fun loadDataSuccess(list: List<RepoOwner>) {
         Log.d("",list.toString())
         repoWatcherAdapter.repoList = list
+    }
+
+    override fun disconnected() {
+        watcherActivityContainer.snack("Oh no! No Internet connection"){
+            action("Retry"){
+                watcherPresenter.loadWatchers(repoObject.owner.login,repoObject.name)
+            }
+        }
+    }
+
+    override fun connected() {
+        watcherPresenter.loadWatchers(repoObject.owner.login,repoObject.name)
     }
 }

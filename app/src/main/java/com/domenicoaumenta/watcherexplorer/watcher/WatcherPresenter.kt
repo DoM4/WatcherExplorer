@@ -1,15 +1,10 @@
 package com.domenicoaumenta.watcherexplorer.watcher
 
-import android.util.Log
 import com.domenicoaumenta.watcherexplorer.model.RepoOwner
-import com.domenicoaumenta.watcherexplorer.model.RepoOwnerResponse
-import com.domenicoaumenta.watcherexplorer.model.RepositoriesResponse
 import com.domenicoaumenta.watcherexplorer.network.GitHubWatcherAPI
-import com.domenicoaumenta.watcherexplorer.repositories.RepositoriesContract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 
 /**
