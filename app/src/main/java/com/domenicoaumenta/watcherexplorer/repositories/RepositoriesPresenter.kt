@@ -3,6 +3,7 @@ package com.domenicoaumenta.watcherexplorer.repositories
 import android.util.Log
 import com.domenicoaumenta.watcherexplorer.model.RepositoriesResponse
 import com.domenicoaumenta.watcherexplorer.network.GitHubWatcherAPI
+import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,15 +22,15 @@ class RepositoriesPresenter : RepositoriesContract.Presenter {
     private val api: GitHubWatcherAPI = GitHubWatcherAPI.create()
     private lateinit var view: RepositoriesContract.View
 
+
     override fun loadData(keyword : String) {
         Log.d("RepositoriesPresenter","loadData : $keyword")
         view.showProgress(true)
         var subscribe = api.searchRepositoriesByKeyword(keyword).subscribeOn(Schedulers.io())
-                .debounce(300, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ dataResponse: RepositoriesResponse? ->
                     view.showProgress(false)
+                    Log.d("RepositoriesPresenter","dataResponse : ${dataResponse.toString()}")
                     view.loadDataSuccess(dataResponse!!.items)
                 }, { error ->
                     view.showProgress(false)

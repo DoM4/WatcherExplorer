@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.domenicoaumenta.watcherexplorer.BaseActivity
 import com.domenicoaumenta.watcherexplorer.R
+import com.domenicoaumenta.watcherexplorer.R.id.*
 import com.domenicoaumenta.watcherexplorer.di.component.DaggerActivityComponent
 import com.domenicoaumenta.watcherexplorer.di.module.ActivityModule
 import com.domenicoaumenta.watcherexplorer.model.RepoObject
 import com.domenicoaumenta.watcherexplorer.repositories.RepositoriesContract
 import com.domenicoaumenta.watcherexplorer.utils.action
+import com.domenicoaumenta.watcherexplorer.utils.hideKeyboard
 import com.domenicoaumenta.watcherexplorer.utils.isVisible
 import com.domenicoaumenta.watcherexplorer.utils.snack
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,18 +25,6 @@ import javax.inject.Inject
 
 
 class MainActivity : BaseActivity(), RepositoriesContract.View {
-
-    override fun disconnected() {
-        mainActivityContainer.snack("Oh no! No Internet connection"){
-            action("Retry"){
-                repositoriesPresenter.loadData(searchReposEditText.text.toString())
-            }
-        }
-    }
-
-    //we leave this method empty as we trigger the research with the button
-    override fun connected() {
-    }
 
     @Inject
     lateinit var repositoriesPresenter : RepositoriesContract.Presenter
@@ -49,13 +41,9 @@ class MainActivity : BaseActivity(), RepositoriesContract.View {
         repositoriesPresenter.attach(this)
         repositoriesPresenter.subscribe()
 
-        searchReposEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                repositoriesPresenter.loadData(searchReposEditText.text.toString())
-                return@OnEditorActionListener true
-            }
-            false
-        })    }
+        setSearchListener()
+
+      }
 
     override fun showProgress(show: Boolean) {
         progressBar.isVisible = show
@@ -72,6 +60,18 @@ class MainActivity : BaseActivity(), RepositoriesContract.View {
     override fun loadDataSuccess(list: List<RepoObject>) {
         Log.d("",list.toString())
         repoAdapter.repoList = list
+        searchReposEditText.hideKeyboard()
+    }
+
+    private fun setSearchListener(){
+
+        searchReposEditText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                repositoriesPresenter.loadData(searchReposEditText.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     private fun injectDependency() {
@@ -92,4 +92,15 @@ class MainActivity : BaseActivity(), RepositoriesContract.View {
         reposList.adapter = repoAdapter
     }
 
+    override fun disconnected() {
+        mainActivityContainer.snack("Oh no! No Internet connection"){
+            action("Retry"){
+                repositoriesPresenter.loadData(searchReposEditText.text.toString())
+            }
+        }
+    }
+
+    //we leave this method empty as we trigger the research with the button
+    override fun connected() {
+    }
 }

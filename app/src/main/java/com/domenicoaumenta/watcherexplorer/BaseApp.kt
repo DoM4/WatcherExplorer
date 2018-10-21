@@ -2,7 +2,6 @@ package com.domenicoaumenta.watcherexplorer
 
 import android.app.Application
 import com.domenicoaumenta.watcherexplorer.di.component.ApplicationComponent
-import com.domenicoaumenta.watcherexplorer.di.component.DaggerActivityComponent
 import com.domenicoaumenta.watcherexplorer.di.component.DaggerApplicationComponent
 import com.domenicoaumenta.watcherexplorer.di.module.ApplicationModule
 

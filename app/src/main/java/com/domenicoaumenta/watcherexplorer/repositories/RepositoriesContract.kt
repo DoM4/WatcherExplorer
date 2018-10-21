@@ -13,7 +13,7 @@ class RepositoriesContract {
     fun showProgress(show: Boolean)
     fun showErrorMessage(error: String)
     fun loadDataSuccess(list: List<RepoObject>)
-}
+    }
 
     interface Presenter: BaseContract.Presenter<View> {
         fun loadData(keyword : String)

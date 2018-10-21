@@ -2,8 +2,6 @@ package com.domenicoaumenta.watcherexplorer.watcher
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
@@ -16,7 +14,6 @@ import com.domenicoaumenta.watcherexplorer.model.RepoOwner
 import com.domenicoaumenta.watcherexplorer.utils.action
 import com.domenicoaumenta.watcherexplorer.utils.isVisible
 import com.domenicoaumenta.watcherexplorer.utils.snack
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_watchers.*
 import javax.inject.Inject
 

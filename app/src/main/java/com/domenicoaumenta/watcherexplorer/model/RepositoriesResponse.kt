@@ -7,4 +7,4 @@ package com.domenicoaumenta.watcherexplorer.model
 
 data class RepositoriesResponse(val total_count : Int,
                                 val incomplete_results : Boolean,
-                                val items : List<RepoObject>)
+                                var items : List<RepoObject>)
